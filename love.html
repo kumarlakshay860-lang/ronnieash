@@ -1,0 +1,533 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Love 💗</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  color: #a52c62;
+  background: linear-gradient(135deg, #ffe5f0, #fff0f5, #ffd1e4);
+  overflow-x: hidden;
+}
+
+.page {
+  min-height: 100vh;
+  width: 100%;
+  padding: 25px 16px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.page.active {
+  display: flex;
+  animation: appear 0.65s ease;
+}
+
+@keyframes appear {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+  font-size: clamp(27px, 6vw, 43px);
+  margin: 10px 0 15px;
+}
+
+p {
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.card {
+  width: min(100%, 440px);
+  padding: 28px 20px;
+  border-radius: 28px;
+  background: rgba(255,255,255,0.72);
+  border: 2px solid white;
+  box-shadow: 0 12px 40px #dc6d9b35;
+  position: relative;
+  z-index: 2;
+}
+
+.heart {
+  font-size: 52px;
+  animation: heartbeat 1.2s infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.17); }
+}
+
+.options {
+  display: grid;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border: 2px solid #ffc0d9;
+  background: #fff7fb;
+  color: #ad356b;
+  border-radius: 17px;
+  padding: 15px 12px;
+  font-size: 17px;
+  font-weight: bold;
+  transition: transform 0.2s, background 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:hover {
+  background: #ffd5e7;
+  transform: scale(1.025);
+}
+
+input {
+  width: 100%;
+  margin: 16px 0 12px;
+  padding: 16px;
+  border-radius: 15px;
+  border: 2px solid #ffc0d9;
+  outline: none;
+  background: white;
+  text-align: center;
+  font-size: 22px;
+  letter-spacing: 5px;
+  color: #a52c62;
+}
+
+input:focus {
+  border-color: #ed78a9;
+}
+
+.primary {
+  width: 100%;
+  color: white;
+  background: #ed77a6;
+  border: none;
+}
+
+.hint {
+  font-size: 14px;
+  color: #a15c7b;
+  margin-top: 15px;
+}
+
+.message {
+  min-height: 25px;
+  color: #ce326c;
+  font-weight: bold;
+  margin-top: 12px;
+}
+
+/* Floating flowers */
+.flower {
+  position: fixed;
+  top: -50px;
+  z-index: 5;
+  pointer-events: none;
+  animation: fall linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(115vh) rotate(480deg);
+    opacity: 0.2;
+  }
+}
+
+/* Apology screen */
+#sorryPage {
+  background: linear-gradient(145deg, #ffb5d3, #ffe5f0, #ff9fc8);
+}
+
+.sorry-word {
+  position: absolute;
+  font-size: clamp(19px, 4vw, 34px);
+  font-weight: 900;
+  color: #e34c8a;
+  text-shadow: 1px 2px white;
+  animation: pop 0.45s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes pop {
+  from { transform: scale(0.85) rotate(-7deg); }
+  to { transform: scale(1.12) rotate(7deg); }
+}
+
+/* Final love page */
+#lovePage {
+  background:
+    radial-gradient(ellipse at top, #fff7fb 0%, transparent 60%),
+    linear-gradient(140deg, #ffc4df, #ffeaf4, #ffb7d6);
+}
+
+.love-title {
+  font-size: clamp(34px, 8vw, 62px);
+  line-height: 1.2;
+  color: #d63379;
+  text-shadow: 2px 3px white;
+  animation: heartbeat 1.5s infinite;
+  position: relative;
+  z-index: 2;
+}
+
+.love-subtitle {
+  font-size: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Original CSS-drawn chibi couple */
+.couple {
+  position: relative;
+  width: 290px;
+  height: 290px;
+  max-width: 90vw;
+  margin: 0 auto 12px;
+  animation: cuddle 2.3s ease-in-out infinite;
+  transform-origin: 50% 85%;
+}
+
+@keyframes cuddle {
+  0%, 100% { transform: rotate(-2deg) translateY(0); }
+  50% { transform: rotate(2deg) translateY(-8px); }
+}
+
+.person {
+  position: absolute;
+  bottom: 10px;
+  width: 125px;
+  height: 155px;
+  border-radius: 65px 65px 35px 35px;
+}
+
+.boy {
+  left: 32px;
+  background: #83b9e9;
+  z-index: 1;
+  transform: rotate(-8deg);
+}
+
+.girl {
+  right: 32px;
+  background: #f58bb7;
+  z-index: 2;
+  transform: rotate(8deg);
+}
+
+.head {
+  position: absolute;
+  width: 100px;
+  height: 105px;
+  top: -72px;
+  left: 12px;
+  border-radius: 48% 48% 46% 46%;
+  background: #ffd6bb;
+  border: 2px solid #e7a78e;
+}
+
+.boy .head {
+  background: #f5c6a9;
+}
+
+.hair {
+  position: absolute;
+  width: 105px;
+  height: 55px;
+  top: -6px;
+  left: -4px;
+  border-radius: 50% 50% 25% 30%;
+  background: #443047;
+}
+
+.boy .hair {
+  background: #423247;
+  height: 43px;
+}
+
+.eye {
+  position: absolute;
+  top: 44px;
+  width: 8px;
+  height: 12px;
+  background: #49303c;
+  border-radius: 50%;
+}
+
+.eye.left { left: 25px; }
+.eye.right { right: 25px; }
+
+.blush {
+  position: absolute;
+  top: 61px;
+  width: 18px;
+  height: 9px;
+  background: #ff9eac;
+  border-radius: 50%;
+  opacity: 0.8;
+}
+
+.blush.left { left: 10px; }
+.blush.right { right: 10px; }
+
+.smile {
+  position: absolute;
+  top: 65px;
+  left: 42px;
+  width: 17px;
+  height: 9px;
+  border-bottom: 2px solid #b34f65;
+  border-radius: 50%;
+}
+
+.arm {
+  position: absolute;
+  top: 35px;
+  width: 105px;
+  height: 27px;
+  border-radius: 25px;
+  background: #ffd6bb;
+  z-index: 4;
+}
+
+.boy .arm {
+  right: -47px;
+  transform: rotate(35deg);
+}
+
+.girl .arm {
+  left: -42px;
+  top: 47px;
+  transform: rotate(-35deg);
+}
+
+.heart-float {
+  position: absolute;
+  font-size: 25px;
+  animation: floatHeart 2s ease-in-out infinite;
+}
+
+@keyframes floatHeart {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-20px) scale(1.2); }
+}
+
+.small-note {
+  font-size: 14px;
+  color: #b14d7b;
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 380px) {
+  .card { padding: 23px 15px; }
+  .couple { transform: scale(.88); margin-top: -10px; margin-bottom: -5px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1: DATE QUESTION -->
+<section id="datePage" class="page active">
+  <div class="card">
+    <div class="heart">💗</div>
+    <p>Heyyy, my favourite person...</p>
+    <h1>The day you met me? 🌸</h1>
+    <p>Let's see if you remember our little story! 🥹</p>
+
+    <div class="options">
+      <button onclick="checkDate(0)">04 03 2024 💕</button>
+      <button onclick="checkDate(1)">06102024 🌷</button>
+      <button onclick="checkDate(2)">24112024 🦋</button>
+      <button onclick="checkDate(3)">26072024 🌸</button>
+    </div>
+
+    <div id="dateMessage" class="message"></div>
+  </div>
+</section>
+
+<!-- PAGE 2: PASSWORD -->
+<section id="passwordPage" class="page">
+  <div class="card">
+    <div class="heart">💌</div>
+    <h1>One more little secret...</h1>
+    <p>Enter the password to unlock something from my heart. 💗</p>
+
+    <form id="passwordForm">
+      <input
+        id="passwordInput"
+        type="password"
+        placeholder="Enter password"
+        maxlength="20"
+        autocomplete="off"
+        aria-label="Secret password"
+        required
+      >
+      <button class="primary" type="submit">Unlock my heart 💖</button>
+    </form>
+
+    <p class="hint">
+      Hint: the day you gave me the first letter paragraph around diwali time 🥹
+    </p>
+    <div id="passwordMessage" class="message"></div>
+  </div>
+</section>
+
+<!-- PAGE 3: TWO-SECOND APOLOGY FLOOD -->
+<section id="sorryPage" class="page">
+  <h1 style="z-index:2">WAITTT... 🥺💗</h1>
+  <p style="z-index:2">I have something to tell you...</p>
+</section>
+
+<!-- PAGE 4: LOVE SURPRISE -->
+<section id="lovePage" class="page">
+  <div class="heart-float" style="top:10%;left:10%">💗</div>
+  <div class="heart-float" style="top:20%;right:12%;animation-delay:.5s">💕</div>
+  <div class="heart-float" style="top:55%;left:5%;animation-delay:1s">🌸</div>
+  <div class="heart-float" style="top:60%;right:5%;animation-delay:.8s">🌷</div>
+
+  <h1 class="love-title">LOVE U<br>SO MUCHHH 💗</h1>
+  <p class="love-subtitle">You will always be my favourite person. 🥹</p>
+
+  <div class="couple" role="img" aria-label="Cute animated boy and girl hugging">
+    <div class="person boy">
+      <div class="head">
+        <div class="hair"></div>
+        <div class="eye left"></div>
+        <div class="eye right"></div>
+        <div class="blush left"></div>
+        <div class="blush right"></div>
+        <div class="smile"></div>
+      </div>
+      <div class="arm"></div>
+    </div>
+
+    <div class="person girl">
+      <div class="head">
+        <div class="hair"></div>
+        <div class="eye left"></div>
+        <div class="eye right"></div>
+        <div class="blush left"></div>
+        <div class="blush right"></div>
+        <div class="smile"></div>
+      </div>
+      <div class="arm"></div>
+    </div>
+
+    <div class="heart-float" style="top:0;left:42%">💖</div>
+    <div class="heart-float" style="top:20px;right:0;animation-delay:.8s">💕</div>
+  </div>
+
+  <p class="love-subtitle">Sending you the biggest virtual hug everrr 🫂</p>
+  <p class="small-note">🌸 You + Me = My favourite story 🌸</p>
+</section>
+
+<script>
+const pages = document.querySelectorAll(".page");
+
+function showPage(id) {
+  pages.forEach(page => page.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function checkDate(choice) {
+  const message = document.getElementById("dateMessage");
+
+  if (choice === 0) {
+    message.textContent = "YAYYY!! You remember! 🥹💗";
+    setTimeout(() => {
+      showPage("passwordPage");
+      document.getElementById("passwordInput").focus();
+    }, 700);
+  } else {
+    message.textContent = "Nopeee, try again, cutie! 🥺🌷";
+  }
+}
+
+document.getElementById("passwordForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const password = document.getElementById("passwordInput").value;
+  const message = document.getElementById("passwordMessage");
+
+  if (password === "2910") {
+    message.textContent = "Password correct! 💗";
+
+    setTimeout(() => {
+      showPage("sorryPage");
+      startSorryFlood();
+
+      setTimeout(() => {
+        showPage("lovePage");
+      }, 2000);
+    }, 400);
+  } else {
+    message.textContent = "Wrong passworddd 😭 Try again!";
+    document.getElementById("passwordInput").value = "";
+  }
+});
+
+let flowerTimer;
+
+function startFlowers() {
+  if (flowerTimer) return;
+
+  const flowers = ["🌸", "🌷", "💮", "🌺", "💕", "🌼"];
+
+  flowerTimer = setInterval(() => {
+    const flower = document.createElement("div");
+    flower.className = "flower";
+    flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+
+    flower.style.left = Math.random() * 100 + "vw";
+    flower.style.fontSize = (16 + Math.random() * 22) + "px";
+    flower.style.animationDuration = (4 + Math.random() * 5) + "s";
+
+    document.body.appendChild(flower);
+    setTimeout(() => flower.remove(), 9500);
+  }, 300);
+}
+
+function startSorryFlood() {
+  const page = document.getElementById("sorryPage");
+
+  for (let i = 0; i < 85; i++) {
+    const word = document.createElement("span");
+    word.className = "sorry-word";
+    word.textContent = ["SORRYYYY 💗", "I'M SORRY 🥺", "SORRYYYY 🌸"][
+      Math.floor(Math.random() * 3)
+    ];
+
+    word.style.left = Math.random() * 95 + "%";
+    word.style.top = Math.random() * 95 + "%";
+    word.style.animationDelay = Math.random() + "s";
+    page.appendChild(word);
+  }
+}
+
+startFlowers();
+</script>
+
+</body>
+</html>
